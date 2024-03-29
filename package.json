@@ -1,5 +1,5 @@
 {
-  "name": "note-taker",
+  "name": "express-note-taker",
   "version": "1.0.0",
   "description": "## Description",
   "main": "server.js",
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.19.1"
   },
   "keywords": []
 }
