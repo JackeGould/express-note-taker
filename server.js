@@ -9,11 +9,13 @@ const { json } = require('express');
 // Links db.json database
 // const db = require('./db/db.json');
 
+// Function provided by the Express.js framework. When called, it returns a new Express application object.
+const app = express();
+
 // Variable named PORT, provides access using process.env in port 3001 which is a defaulted empty port
 const PORT = process.env.port || 3000;
 
-// Function provided by the Express.js framework. When called, it returns a new Express application object.
-const app = express();
+
 
 
 
@@ -27,36 +29,36 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // GET Route for homepage
-// app.get('/', (req, res) =>
-//   res.sendFile(path.join(__dirname, '/public/index.html')));
+app.get('/', (req, res) =>
+  res.sendFile(path.join(__dirname, '/public/index.html')));
 
-// app.get('/api/notes', (req, res) => {
+app.get('/api/notes', (req, res) => {
 
-//   fs.readFile('./db/db.json', 'utf8', (err, data) => {
-//     if (err) throw err;
-//     data = JSON.parse(data);
-//     res.json(data)
-//   });
-// });
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    if (err) throw err;
+    data = JSON.parse(data);
+    res.json(data)
+  });
+});
 
 
 
 // GET Route for homepage
-app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.html')));
+// app.get('/', (req, res) =>
+//   res.sendFile(path.join(__dirname, '/public/index.html')));
 
-// GET Route for notes page
-app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/notes.html')));
+// // GET Route for notes page
+// app.get('/notes', (req, res) =>
+//   res.sendFile(path.join(__dirname, '/public/notes.html')));
 
-// GET Route for API endpoint
-app.get('/api/notes', (req, res) => {
-  fs.readFile('./db/db.json', 'utf8', (err, data) => {
-    if (err) throw err;
-    data = JSON.parse(data);
-    res.json(data);
-  });
-});
+// // GET Route for API endpoint
+// app.get('/api/notes', (req, res) => {
+//   fs.readFile('./db/db.json', 'utf8', (err, data) => {
+//     if (err) throw err;
+//     data = JSON.parse(data);
+//     res.json(data);
+//   });
+// });
 
 
 
@@ -89,14 +91,6 @@ app.post('/api/notes', (req, res) => {
   }); 
   
   app.get('*', (req, res) => res.sendFile(path.join(__dirname, './public/index.html')));
-  
-  
-  
-  
-  
-  
-  
-  
   
   app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));
 
