@@ -1,6 +1,56 @@
-const fs = require('fs');
 const express = require('express');
+// Node.js module path can be used to manipulate file paths
 const path = require('path');
+// Universally Unique Identifier: 32 character string
+const uuid = require('../express-note-taker/helpers/uuid')
+
+// Function provided by the Express.js framework. When called, it returns a new Express application object.
+const app = express();
+// Variable named PORT, provides access using process.env in port 3001 which is a defaulted empty port
+const PORT = process.env.PORT || 3000;
+
+// Middleware for parsing JSON and urlencoded form data. express.static serves static files from a specified directory, in this case 'public'
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+// GET Route for homepage
+app.get('/', (req, res) =>
+  res.sendFile(path.join(__dirname, 'public', 'index.html')));
+
+// GET Route for notes page
+app.get('/notes', (req, res) =>
+  res.sendFile(path.join(__dirname, 'public', 'notes.html')));
+
+// GET Route for API endpoint
+app.get('/api/notes', (req, res) => {
+  fs.readFile(path.join(__dirname, 'db', 'db.json'), 'utf8', (err, data) => {
+    if (err) { 
+      console.error(err);
+      return res.status(500).send('Internal Server Error');
+    }
+try {
+  let notes = JSON.parse(data || '[]');
+  if (notes.length === 0) {
+    // If no notes are saved, send a custom response
+    return res.json({ message '' });
+  }
+  return res.json(notes);
+} catch (pareseError) {
+  console.log(parseError);
+  res.status(500).send('Error parsing JSON data');
+}
+  });
+});
+
+app.post('/api/notes', (req, res) => {
+  const newNote = req.body;
+  // Generate unique ID using UUID
+  newNote.id = uuid(); 
+  console.log(newNote);
+  fs.readfile
+})
+
 
 const { json } = require('express');
 // const api = require('./routes/index.js');
@@ -9,37 +59,21 @@ const { json } = require('express');
 // Links db.json database
 // const db = require('./db/db.json');
 
-// Function provided by the Express.js framework. When called, it returns a new Express application object.
-const app = express();
-
-// Variable named PORT, provides access using process.env in port 3001 which is a defaulted empty port
-const PORT = process.env.port || 3000;
 
 
-
-
-
-// Middleware for parsing JSON and urlencoded form data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Not needed
 // app.use('/api', api);
 
-app.use(express.static('public'));
+
 
 // GET Route for homepage
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html')));
 
-app.get('/api/notes', (req, res) => {
+app.get('/notes', (req, res) =>
+  res.sendFile(path.join(__dirname, 'public', 'notes.html')));
 
-  fs.readFile('./db/db.json', 'utf8', (err, data) => {
-    if (err) throw err;
-    data = JSON.parse(data);
-    res.json(data)
-  });
-});
 
 
 

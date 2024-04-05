@@ -39,4 +39,4 @@ The following image demonstrates the web application's appearance and functional
 
 ## Deployment
 
-https://github.com/JackeGould/note-taker
+https://github.com/JackeGould/express-note-taker
