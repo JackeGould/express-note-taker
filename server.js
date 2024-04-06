@@ -3,7 +3,7 @@ const fs = require('fs');
 // Node.js module path can be used to manipulate file paths
 const path = require('path');
 // Universally Unique Identifier: 32 character string
-const uuid = require('../express-note-taker/helpers/uuid')
+const uuid = require('../helpers/uuid');
 
 // Function provided by the Express.js framework. When called, it returns a new Express application object.
 const app = express();
