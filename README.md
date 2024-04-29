@@ -34,7 +34,7 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 
 The following image demonstrates the web application's appearance and functionality:
 
-![](./)
+![](./public/image1.png)
 
 
 ## Deployment
